@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="12dp">
+
+    <TextView
+        android:id="@+id/tvDayName"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imgDailyIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/ic_menu_report_image" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tvDailyMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="16°"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <!-- Temperature Bar (Simplified) -->
+    <View
+        android:layout_width="60dp"
+        android:layout_height="4dp"
+        android:layout_marginHorizontal="12dp"
+        android:background="@drawable/bg_temp_bar" />
+
+    <TextView
+        android:id="@+id/tvDailyMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="28°"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</LinearLayout>
