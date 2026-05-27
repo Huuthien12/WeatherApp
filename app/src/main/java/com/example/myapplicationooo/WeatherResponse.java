@@ -22,12 +22,16 @@ public class WeatherResponse {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("timezone")
+    private int timezone;
+
     public Main getMain() { return main; }
     public List<Weather> getWeather() { return weather; }
     public Wind getWind() { return wind; }
     public Sys getSys() { return sys; }
     public int getVisibility() { return visibility; }
     public String getName() { return name; }
+    public int getTimezone() { return timezone; }
 
     public static class Main {
         @SerializedName("temp")

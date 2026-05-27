@@ -12,14 +12,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
     private List<ForecastItem> forecastList;
     private String unit;
+    private int timezoneOffset;
 
-    public ForecastAdapter(List<ForecastItem> forecastList, String unit) {
+    public ForecastAdapter(List<ForecastItem> forecastList, String unit, int timezoneOffset) {
         this.forecastList = forecastList;
         this.unit = unit;
+        this.timezoneOffset = timezoneOffset;
     }
 
     @NonNull
@@ -33,8 +36,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ForecastItem item = forecastList.get(position);
 
-        // Định dạng giờ từ Timestamp
+        // Định dạng giờ theo timezone của thành phố
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT" + (timezoneOffset >= 0 ? "+" : "") + (timezoneOffset / 3600)));
         holder.tvTime.setText(sdf.format(new Date(item.getDt() * 1000)));
 
         double tempC = item.getMain().getTemp();
@@ -45,13 +49,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             holder.tvTemp.setText(String.format(Locale.getDefault(), "%.0f°", tempC));
         }
 
-        String iconUrl = "https://openweathermap.org/img/wn/" + item.getWeather().get(0).getIcon() + ".png";
-        Glide.with(holder.itemView.getContext()).load(iconUrl).into(holder.imgIcon);
+        // Sử dụng icon local cho rõ nét hơn
+        int iconRes = WeatherIconHelper.getWeatherIcon(item.getWeather().get(0).getIcon());
+        Glide.with(holder.itemView.getContext()).load(iconRes).into(holder.imgIcon);
     }
 
     @Override
     public int getItemCount() {
-        return forecastList != null ? Math.min(forecastList.size(), 8) : 0; // Lấy 8 mục cho 24h
+        return forecastList != null ? Math.min(forecastList.size(), 8) : 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

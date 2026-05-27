@@ -130,7 +130,7 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_button_translucent"
-                    android:text="5-day forecast"
+                    android:text="@string/five_day_forecast"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
@@ -158,10 +158,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="24-hour forecast"
+                    android:alpha="0.7"
+                    android:text="@string/twenty_four_hour_forecast"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:alpha="0.7" />
+                    android:textSize="14sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvForecast"
@@ -186,12 +186,13 @@
 
             <!-- UV Index -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutUV"
                 style="@style/WeatherDetailCard"
                 android:layout_columnWeight="1">
                 <TextView
                     android:id="@+id/lblUV"
                     style="@style/WeatherDetailLabel"
-                    android:text="UV"
+                    android:text="@string/uv_index"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
@@ -200,22 +201,19 @@
                     android:text="Moderate"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lblUV" />
-                
                 <FrameLayout
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-                    
                     <ProgressBar
                         android:id="@+id/pbUV"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:progressDrawable="@drawable/circular_gauge_uv"
                         android:max="11"
-                        android:progress="3" />
-                    
+                        android:progress="3"
+                        android:progressDrawable="@drawable/circular_gauge_uv" />
                     <TextView
                         android:id="@+id/tvUVIndex"
                         android:layout_width="wrap_content"
@@ -230,12 +228,13 @@
 
             <!-- Humidity -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutHumidity"
                 style="@style/WeatherDetailCard"
                 android:layout_columnWeight="1">
                 <TextView
                     android:id="@+id/lblHumidity"
                     style="@style/WeatherDetailLabel"
-                    android:text="Humidity"
+                    android:text="@string/humidity"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
@@ -244,22 +243,19 @@
                     android:text="48%"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lblHumidity" />
-                
                 <FrameLayout
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-                    
                     <ProgressBar
                         android:id="@+id/pbHumidity"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:progressDrawable="@drawable/circular_gauge_humidity"
                         android:max="100"
-                        android:progress="48" />
-                    
+                        android:progress="48"
+                        android:progressDrawable="@drawable/circular_gauge_humidity" />
                     <ImageView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
@@ -276,7 +272,7 @@
                 <TextView
                     android:id="@+id/lblFeels"
                     style="@style/WeatherDetailLabel"
-                    android:text="Real feel"
+                    android:text="@string/real_feel"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
@@ -285,21 +281,19 @@
                     android:text="26°"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lblFeels" />
-                
                 <FrameLayout
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-                    
                     <ProgressBar
                         android:id="@+id/pbFeels"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:progressDrawable="@drawable/circular_gauge_feels"
                         android:max="50"
-                        android:progress="26" />
+                        android:progress="26"
+                        android:progressDrawable="@drawable/circular_gauge_feels" />
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -319,38 +313,34 @@
                     android:text="7.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvWindDirection" />
-
                 <FrameLayout
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-                    
                     <ImageView
                         android:id="@+id/imgCompassDial"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/bg_compass"
                         app:tint="#80FFFFFF" />
-
                     <ImageView
                         android:id="@+id/imgCompassArrow"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@android:drawable/ic_menu_compass"
                         android:padding="12dp"
+                        android:src="@android:drawable/ic_menu_compass"
                         app:tint="#00BAFF" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="km/h"
-                        android:textColor="#FFFFFF"
-                        android:textSize="9sp"
                         android:background="@drawable/bg_circle_blue"
                         android:paddingHorizontal="4dp"
-                        android:paddingVertical="8dp" />
+                        android:paddingVertical="8dp"
+                        android:text="km/h"
+                        android:textColor="#FFFFFF"
+                        android:textSize="9sp" />
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -361,7 +351,7 @@
                 <TextView
                     android:id="@+id/lblSunset"
                     style="@style/WeatherDetailLabel"
-                    android:text="Sunset"
+                    android:text="@string/sunset"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
@@ -370,24 +360,21 @@
                     android:text="17:59"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lblSunset" />
-                
                 <LinearLayout
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-                    
                     <ProgressBar
                         android:id="@+id/pbSunset"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:progressDrawable="@drawable/gauge_sunset_arc"
                         android:max="100"
-                        android:progress="70" />
-                    
+                        android:progress="70"
+                        android:progressDrawable="@drawable/gauge_sunset_arc" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -396,18 +383,18 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="start"
                             android:text="05:29"
                             android:textColor="#80FFFFFF"
-                            android:textSize="10sp"
-                            android:gravity="start"/>
+                            android:textSize="10sp" />
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="end"
                             android:text="17:59"
                             android:textColor="#80FFFFFF"
-                            android:textSize="10sp"
-                            android:gravity="end"/>
+                            android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -419,7 +406,7 @@
                 <TextView
                     android:id="@+id/lblPressure"
                     style="@style/WeatherDetailLabel"
-                    android:text="Pressure"
+                    android:text="@string/pressure"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <TextView
@@ -428,28 +415,25 @@
                     android:text="1015"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lblPressure" />
-                
                 <FrameLayout
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-                    
                     <ProgressBar
                         android:id="@+id/pbPressure"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:progressDrawable="@drawable/circular_gauge_pressure"
                         android:max="100"
-                        android:progress="65" />
-                    
+                        android:progress="65"
+                        android:progressDrawable="@drawable/circular_gauge_pressure" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_gravity="center"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"

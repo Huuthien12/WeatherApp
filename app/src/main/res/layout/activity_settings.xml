@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
@@ -12,6 +13,7 @@
         android:layout_margin="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_revert"
+        android:contentDescription="@string/cancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#FFFFFF" />
@@ -22,13 +24,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
@@ -39,14 +41,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="24dp">
 
+            <!-- Units Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Units"
-                android:textColor="#808080" />
+                android:text="@string/units"
+                android:textColor="#808080"
+                android:textAllCaps="true"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +60,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#1A1A1A"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="4dp">
 
                 <RelativeLayout
                     android:id="@+id/layoutTempUnit"
@@ -62,60 +68,46 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="16dp"
                     android:background="?attr/selectableItemBackground">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Temperature units" android:textColor="#FFFFFF" android:textSize="16sp" />
+                    <TextView 
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" 
+                        android:layout_alignParentStart="true"
+                        android:text="@string/temp_unit" 
+                        android:textColor="#FFFFFF" 
+                        android:textSize="16sp" />
                     <TextView 
                         android:id="@+id/tvCurrentTempUnit"
                         android:layout_width="wrap_content" 
                         android:layout_height="wrap_content" 
                         android:layout_alignParentEnd="true" 
                         android:text="°C" 
-                        android:textColor="#4A90E2" />
+                        android:textColor="#4A90E2"
+                        tools:ignore="HardcodedText" />
                 </RelativeLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="16dp" android:background="#333333" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#333333" android:layout_marginHorizontal="16dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wind speed units" android:textColor="#FFFFFF" android:textSize="16sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="Beaufort scale" android:textColor="#808080" />
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/wind_speed_units" android:textColor="#FFFFFF" android:textSize="16sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="@string/beaufort_scale" android:textColor="#808080" />
                 </RelativeLayout>
             </LinearLayout>
 
+            <!-- AI Services Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Other settings"
-                android:textColor="#808080" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#1A1A1A"
-                android:orientation="horizontal"
-                android:padding="16dp">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Update at night automatically" android:textColor="#FFFFFF" android:textSize="16sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Update weather info between 23:00 and 07:00" android:textColor="#808080" android:textSize="12sp" />
-                </LinearLayout>
-                <androidx.appcompat.widget.SwitchCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="About Weather"
-                android:textColor="#808080" />
+                android:text="AI Services"
+                android:textColor="#808080"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,14 +115,129 @@
                 android:layout_marginTop="10dp"
                 android:background="#1A1A1A"
                 android:orientation="vertical"
+                android:padding="4dp">
+
+                <RelativeLayout
+                    android:id="@+id/layoutTripPlanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="16dp"
+                    android:background="?attr/selectableItemBackground">
+                    <TextView 
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content"
+                        android:text="@string/trip_planner" 
+                        android:textColor="#FFFFFF" 
+                        android:textSize="16sp" />
+                    <ImageView 
+                        android:layout_width="20dp" 
+                        android:layout_height="20dp" 
+                        android:layout_alignParentEnd="true" 
+                        android:src="@android:drawable/ic_media_play" 
+                        app:tint="#4A90E2"
+                        android:contentDescription="@string/trip_planner" />
+                </RelativeLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#333333" android:layout_marginHorizontal="16dp" />
+
+                <RelativeLayout
+                    android:id="@+id/layoutChatAI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="16dp"
+                    android:background="?attr/selectableItemBackground">
+                    <TextView 
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content" 
+                        android:text="@string/ai_assistant" 
+                        android:textColor="#FFFFFF" 
+                        android:textSize="16sp" />
+                    <ImageView 
+                        android:layout_width="20dp" 
+                        android:layout_height="20dp" 
+                        android:layout_alignParentEnd="true" 
+                        android:src="@android:drawable/ic_media_play" 
+                        app:tint="#4A90E2"
+                        android:contentDescription="@string/ai_assistant" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- Language Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/language"
+                android:textColor="#808080"
+                android:textAllCaps="true"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#1A1A1A"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
                 android:padding="16dp">
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Feedback" android:textColor="#FFFFFF" android:textSize="16sp" />
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="16dp" android:background="#333333" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Privacy" android:textColor="#FFFFFF" android:textSize="16sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/app_language"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tvCurrentLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english"
+                    android:textColor="#4A90E2" />
+            </LinearLayout>
+
+            <!-- Notifications Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/notification_settings"
+                android:textColor="#808080"
+                android:textAllCaps="true"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutNotificationSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#1A1A1A"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/notification_settings"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_media_play"
+                    android:contentDescription="@string/notification_settings"
+                    app:tint="#4A90E2" />
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btnLogout"
@@ -138,7 +245,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:backgroundTint="#D32F2F"
-        android:text="Sign Out"
+        android:text="@string/logout"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent" />

@@ -24,4 +24,18 @@
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <!-- Styles for Notification Settings -->
+    <style name="NotificationOptionRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#1AFFFFFF</item>
+        <item name="android:layout_marginHorizontal">12dp</item>
+    </style>
 </resources>

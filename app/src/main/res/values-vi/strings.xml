@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">Ứng dụng Thời tiết</string>
+    <string name="settings">Cài đặt</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="temp_unit">Đơn vị nhiệt độ</string>
+    <string name="confirm_logout">Bạn có chắc chắn muốn đăng xuất không?</string>
+    <string name="cancel">Hủy</string>
+    <string name="weather_planner">Lịch trình thời tiết</string>
+    <string name="ai_assistant">Trợ lý AI</string>
+    <string name="current_location">Vị trí hiện tại</string>
+    <string name="added_locations">Vị trí đã thêm</string>
+    <string name="search_history">Lịch sử tìm kiếm</string>
+    <string name="popular_locations">Vị trí phổ biến</string>
+    <string name="enter_location">Nhập địa điểm</string>
+    <string name="manage_cities">Quản lý thành phố</string>
+    <string name="five_day_forecast">Dự báo 5 ngày</string>
+    <string name="twenty_four_hour_forecast">Dự báo 24 giờ</string>
+    <string name="humidity">Độ ẩm</string>
+    <string name="uv_index">Chỉ số UV</string>
+    <string name="wind_speed">Tốc độ gió</string>
+    <string name="pressure">Áp suất</string>
+    <string name="real_feel">Cảm giác thực</string>
+    <string name="sunset">Hoàng hôn</string>
+    <string name="sunrise">Bình minh</string>
+
+    <!-- Outfit Recommendation Strings -->
+    <string name="outfit_recommendation">Gợi ý trang phục</string>
+    <string name="outfit_for_today">Trang phục hôm nay</string>
+    <string name="suggested_items">Vật dụng gợi ý</string>
+    <string name="heavy_coat">Áo khoác dày</string>
+    <string name="scarf">Khăn len</string>
+    <string name="hoodie">Áo Hoodie hoặc Áo khoác</string>
+    <string name="t_shirt">Áo thun và Quần jeans</string>
+    <string name="thin_clothes">Quần áo mỏng</string>
+    <string name="umbrella">Mang theo ô/dù</string>
+    <string name="sunglasses">Kính râm</string>
+    <string name="sunscreen">Thoa kem chống nắng</string>
+    <string name="windbreaker">Áo khoác chắn gió</string>
+    <string name="desc_very_cold">Trời rất lạnh. Hãy mặc nhiều lớp nhé!</string>
+    <string name="desc_cool">Thời tiết mát mẻ và dễ chịu.</string>
+    <string name="desc_warm">Hôm nay trời khá ấm áp.</string>
+    <string name="desc_hot">Cảnh báo trời nóng. Hãy mặc đồ thoáng mát!</string>
+    <string name="warn_rain">Khả năng mưa cao. Đừng quên mang theo ô!</string>
+    <string name="warn_uv">Chỉ số UV rất cao. Hãy bảo vệ làn da của bạn.</string>
+
+    <!-- Radar & Marine Strings -->
+    <string name="weather_radar">Bản đồ Radar</string>
+    <string name="marine_weather">Thời tiết biển</string>
+    <string name="wave_height">Độ cao sóng</string>
+    <string name="sea_temperature">Nhiệt độ nước biển</string>
+    <string name="marine_wind">Gió biển</string>
+    <string name="wave_period">Chu kỳ sóng</string>
+    <string name="marine_safety_alert">Cảnh báo an toàn biển</string>
+    <string name="safe_conditions">Điều kiện an toàn</string>
+    <string name="high_wave_warning">Cảnh báo sóng cao! (> 2.5m)</string>
+    <string name="gale_warning">Cảnh báo gió mạnh! (> 30 km/h)</string>
+    <string name="extreme_sea_warning">Điều kiện cực đoan! Không nên ra khơi.</string>
+
+    <!-- Guest Mode Strings -->
+    <string name="login_required_title">Yêu cầu đăng nhập</string>
+    <string name="login_required_msg">Vui lòng đăng nhập để sử dụng các tính năng cao cấp như Trợ lý AI, Lập kế hoạch và Đồng bộ hóa.</string>
+    <string name="login_now">Đăng nhập / Đăng ký</string>
+    <string name="continue_as_guest">Tiếp tục với tư cách Khách</string>
+    <string name="welcome_guest">Chào mừng, Khách</string>
+    <string name="notification_settings">Cài đặt thông báo</string>
+    <string name="enable_smart_notifications">Bật thông báo thông minh</string>
+    <string name="rain_alert_title">Cảnh báo mưa</string>
+    <string name="uv_alert_title">Cảnh báo UV</string>
+    <string name="wind_alert_title">Cảnh báo gió</string>
+    <string name="good_weather_title">Thời tiết đẹp</string>
+    <string name="rain_warning_msg">Dự báo sẽ có mưa trong vài giờ tới. Hãy nhớ mang theo ô!</string>
+    <string name="uv_warning_msg">Chỉ số UV đang rất cao. Hãy ở trong bóng râm hoặc bôi kem chống nắng.</string>
+    <string name="wind_warning_msg">Phát hiện gió mạnh. Hãy cẩn thận khi ra ngoài.</string>
+    <string name="good_weather_msg">Thời tiết hôm nay rất đẹp cho các hoạt động ngoài trời!</string>
+    <string name="notification_permission_denied">Quyền bị từ chối. Vui lòng bật thông báo trong cài đặt.</string>
+
+    <!-- AQI Strings -->
+    <string name="aqi_title">Chất lượng không khí</string>
+    <string name="aqi_good">Tốt</string>
+    <string name="aqi_fair">Khá</string>
+    <string name="aqi_moderate">Trung bình</string>
+    <string name="aqi_poor">Kém</string>
+    <string name="aqi_very_poor">Rất kém</string>
+    <string name="health_advice">Lời khuyên sức khỏe</string>
+    <string name="mask_advice_none">Không cần đeo khẩu trang.</string>
+    <string name="mask_advice_sensitive">Nhóm nhạy cảm nên đeo khẩu trang.</string>
+    <string name="mask_advice_required">Mọi người nên đeo khẩu trang khi ra ngoài.</string>
+    <string name="activity_advice_good">Phù hợp cho các hoạt động ngoài trời và chạy bộ.</string>
+    <string name="activity_advice_bad">Hạn chế các hoạt động ngoài trời.</string>
+    <string name="pollutants_detail">Chi tiết chất ô nhiễm</string>
+
+    <!-- AI Trip Planner Strings -->
+    <string name="trip_planner">Lập kế hoạch chuyến đi với AI</string>
+    <string name="ask_ai_trip">Kế hoạch của bạn là gì? (vd: Đi leo núi ở Sapa)</string>
+    <string name="destination_hint">Thành phố đến</string>
+    <string name="generating_plan">AI đang phân tích thời tiết...</string>
+    <string name="activity_type">Loại hoạt động</string>
+</resources>

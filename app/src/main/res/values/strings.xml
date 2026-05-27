@@ -1,3 +1,111 @@
 <resources>
-    <string name="app_name">Thời tiết</string>
+    <string name="app_name">Weather App</string>
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
+    <string name="logout">Logout</string>
+    <string name="temp_unit">Temperature Unit</string>
+    <string name="confirm_logout">Are you sure you want to logout?</string>
+    <string name="cancel">Cancel</string>
+    <string name="weather_planner">Weather Planner</string>
+    <string name="ai_assistant">AI Assistant</string>
+    <string name="current_location">Current location</string>
+    <string name="added_locations">Added locations</string>
+    <string name="search_history">Search history</string>
+    <string name="popular_locations">Popular locations</string>
+    <string name="enter_location">Enter location</string>
+    <string name="manage_cities">Manage cities</string>
+    <string name="five_day_forecast">5-day forecast</string>
+    <string name="twenty_four_hour_forecast">24-hour forecast</string>
+    <string name="humidity">Humidity</string>
+    <string name="uv_index">UV Index</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="pressure">Pressure</string>
+    <string name="real_feel">Real feel</string>
+    <string name="sunset">Sunset</string>
+    <string name="sunrise">Sunrise</string>
+    
+    <!-- Outfit Recommendation Strings -->
+    <string name="outfit_recommendation">Outfit Suggestion</string>
+    <string name="outfit_for_today">Outfit for Today</string>
+    <string name="suggested_items">Suggested Items</string>
+    <string name="heavy_coat">Heavy Coat</string>
+    <string name="scarf">Warm Scarf</string>
+    <string name="hoodie">Hoodie or Jacket</string>
+    <string name="t_shirt">T-shirt and Jeans</string>
+    <string name="thin_clothes">Light Clothes</string>
+    <string name="umbrella">Bring an Umbrella</string>
+    <string name="sunglasses">Sunglasses</string>
+    <string name="sunscreen">Apply Sunscreen</string>
+    <string name="windbreaker">Windbreaker Jacket</string>
+    <string name="desc_very_cold">It is very cold outside. Wear layers!</string>
+    <string name="desc_cool">The weather is cool and pleasant.</string>
+    <string name="desc_warm">It is quite warm today.</string>
+    <string name="desc_hot">Hot weather alert. Stay cool!</string>
+    <string name="warn_rain">High probability of rain. Don\'t forget your umbrella!</string>
+    <string name="warn_uv">UV Index is high. Protect your skin.</string>
+
+    <!-- Radar & Marine Strings -->
+    <string name="weather_radar">Weather Radar</string>
+    <string name="marine_weather">Marine Weather</string>
+    <string name="wave_height">Wave Height</string>
+    <string name="sea_temperature">Sea Temperature</string>
+    <string name="marine_wind">Marine Wind</string>
+    <string name="wave_period">Wave Period</string>
+    <string name="marine_safety_alert">Marine Safety Alert</string>
+    <string name="safe_conditions">Safe Conditions</string>
+    <string name="high_wave_warning">High Wave Warning! (> 2.5m)</string>
+    <string name="gale_warning">Gale Warning! (> 30 km/h)</string>
+    <string name="extreme_sea_warning">Extreme Conditions! Stay in port.</string>
+
+    <!-- Guest Mode Strings -->
+    <string name="login_required_title">Login Required</string>
+    <string name="login_required_msg">Please login to use premium features like AI Assistant, Planner, and Cloud Sync.</string>
+    <string name="login_now">Login / Sign Up</string>
+    <string name="continue_as_guest">Continue as Guest</string>
+    <string name="welcome_guest">Welcome, Guest</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="enable_smart_notifications">Enable Smart Notifications</string>
+    <string name="rain_alert_title">Rain Warning</string>
+    <string name="uv_alert_title">UV Warning</string>
+    <string name="wind_alert_title">Wind Alert</string>
+    <string name="good_weather_title">Good Weather</string>
+    <string name="rain_warning_msg">Rain expected in the next few hours. Remember your umbrella!</string>
+    <string name="uv_warning_msg">UV index is very high. Stay in shade or wear sunscreen.</string>
+    <string name="wind_warning_msg">Strong winds detected. Be careful outdoors.</string>
+    <string name="good_weather_msg">The weather is perfect for a walk or outdoor activity!</string>
+    <string name="notification_permission_denied">Permission denied. Please enable notifications in settings.</string>
+
+    <!-- AQI Strings -->
+    <string name="aqi_title">Air Quality</string>
+    <string name="aqi_good">Good</string>
+    <string name="aqi_fair">Fair</string>
+    <string name="aqi_moderate">Moderate</string>
+    <string name="aqi_poor">Poor</string>
+    <string name="aqi_very_poor">Very Poor</string>
+    <string name="health_advice">Health Advice</string>
+    <string name="mask_advice_none">No mask needed.</string>
+    <string name="mask_advice_sensitive">Sensitive groups should wear a mask.</string>
+    <string name="mask_advice_required">Everyone should wear a mask outdoors.</string>
+    <string name="activity_advice_good">Perfect for outdoor activities.</string>
+    <string name="activity_advice_moderate">Avoid prolonged outdoor exertion.</string>
+    <string name="activity_advice_bad">Limit outdoor activities.</string>
+    <string name="pollutants_detail">Pollutants Detail</string>
+
+    <!-- AI Trip Planner Strings -->
+    <string name="trip_planner">AI Trip Planner</string>
+    <string name="ask_ai_trip">What is your plan? (e.g. Hiking in Sapa)</string>
+    <string name="destination_hint">Destination City</string>
+    <string name="generating_plan">AI is analyzing weather...</string>
+    <string name="activity_type">Activity Type</string>
+
+    <!-- New Settings Strings -->
+    <string name="units">Units</string>
+    <string name="wind_speed_units">Wind speed units</string>
+    <string name="beaufort_scale">Beaufort scale</string>
+    <string name="app_language">App language</string>
+    <string name="other_settings">Other settings</string>
+    <string name="update_night_auto">Update at night automatically</string>
+    <string name="update_night_desc">Update weather info between 23:00 and 07:00</string>
 </resources>

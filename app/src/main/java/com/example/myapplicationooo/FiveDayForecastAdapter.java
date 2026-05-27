@@ -11,17 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class FiveDayForecastAdapter extends RecyclerView.Adapter<FiveDayForecastAdapter.ViewHolder> {
 
     private List<FiveDayItem> forecastList;
+    private String unit = "C";
 
     public FiveDayForecastAdapter(List<FiveDayItem> forecastList) {
         this.forecastList = forecastList;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -37,15 +41,21 @@ public class FiveDayForecastAdapter extends RecyclerView.Adapter<FiveDayForecast
 
         holder.tvDayName.setText(item.getDayName());
         holder.tvDate.setText(item.getDate());
-        holder.tvTempMax.setText(String.format("%.0f°", item.getMaxTemp()));
-        holder.tvTempMin.setText(String.format("%.0f°", item.getMinTemp()));
+        
+        holder.tvTempMax.setText(formatTemp(item.getMaxTemp()));
+        holder.tvTempMin.setText(formatTemp(item.getMinTemp()));
         holder.tvWindForce.setText("Force " + item.getWindForce());
 
         String iconUrl = "https://openweathermap.org/img/wn/" + item.getIcon() + ".png";
         Glide.with(holder.itemView.getContext()).load(iconUrl).into(holder.imgWeatherIcon);
-        
-        // Simulating night icon
         Glide.with(holder.itemView.getContext()).load(iconUrl).into(holder.imgNightIcon);
+    }
+
+    private String formatTemp(double tempC) {
+        if ("F".equals(unit)) {
+            return String.format(Locale.getDefault(), "%.0f°", (tempC * 9/5) + 32);
+        }
+        return String.format(Locale.getDefault(), "%.0f°", tempC);
     }
 
     @Override

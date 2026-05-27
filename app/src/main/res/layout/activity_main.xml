@@ -17,10 +17,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPagerWeather"
+    <!-- Dark Overlay -->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#66000000" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerWeather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -33,9 +46,46 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
+            android:id="@+id/btnChatAI"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_send"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            app:tint="#FFFFFF"
+            android:contentDescription="AI Assistant" />
+
+        <ImageButton
+            android:id="@+id/btnAQI"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_air"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            app:tint="#FFFFFF"
+            android:contentDescription="AQI" />
+
+        <ImageButton
+            android:id="@+id/btnRadar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_dialog_map"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            app:tint="#FFFFFF"
+            android:contentDescription="Weather Radar Map" />
+
+        <ImageButton
             android:id="@+id/btnAddCity"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginStart="4dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/plus_btn"
             android:scaleType="fitCenter"
@@ -45,7 +95,7 @@
             android:id="@+id/btnSettings"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/setting_btn"
             android:scaleType="fitCenter"

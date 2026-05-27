@@ -11,13 +11,16 @@ import java.util.List;
 public class WeatherPagerAdapter extends FragmentStateAdapter {
     private final List<String> cityList = new ArrayList<>();
     private String currentLocName = null;
+    private double currentLat = 0, currentLon = 0;
 
     public WeatherPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
-    public void setCities(List<String> cities, String currentLocName) {
+    public void setCities(List<String> cities, String currentLocName, double lat, double lon) {
         this.currentLocName = currentLocName;
+        this.currentLat = lat;
+        this.currentLon = lon;
         cityList.clear();
         cityList.addAll(cities);
         notifyDataSetChanged();
@@ -35,11 +38,27 @@ public class WeatherPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         String cityName = cityList.get(position);
         boolean isCurrent = cityName.equals(currentLocName);
-        return WeatherFragment.newInstance(cityName, isCurrent);
+        if (isCurrent) {
+            return WeatherFragment.newInstance(cityName, true, currentLat, currentLon);
+        }
+        return WeatherFragment.newInstance(cityName, false);
     }
 
     @Override
     public int getItemCount() {
         return cityList.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return cityList.get(position).hashCode();
+    }
+
+    @Override
+    public boolean containsItem(long itemId) {
+        for (String city : cityList) {
+            if (city.hashCode() == itemId) return true;
+        }
+        return false;
     }
 }

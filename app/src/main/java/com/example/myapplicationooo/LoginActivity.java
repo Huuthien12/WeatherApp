@@ -1,5 +1,6 @@
 package com.example.myapplicationooo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,15 +13,21 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText edtEmail, edtPassword;
     private Button btnLogin, btnRegister;
-    private TextView tvForgotPassword;
+    private TextView tvForgotPassword, tvContinueGuest;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private boolean isRelogin = false;
+    private String targetActivityName = null;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +35,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        isRelogin = getIntent().getBooleanExtra("is_relogin", false);
+        targetActivityName = getIntent().getStringExtra("target_activity");
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+        if (!isRelogin && mAuth.getCurrentUser() != null) {
+            goToMainActivity();
+            return;
         }
 
         edtEmail = findViewById(R.id.edtEmail);
@@ -40,7 +48,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
+        tvContinueGuest = findViewById(R.id.tvContinueGuest); 
         progressBar = findViewById(R.id.loginProgress);
+
+        if (tvContinueGuest != null) {
+            tvContinueGuest.setOnClickListener(v -> goToMainActivity());
+        }
 
         btnLogin.setOnClickListener(v -> loginUser());
         
@@ -67,11 +80,35 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
+                        handleLoginSuccess();
                     } else {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void handleLoginSuccess() {
+        if (targetActivityName != null) {
+            try {
+                Class<?> targetClass = Class.forName(targetActivityName);
+                Intent intent = new Intent(this, targetClass);
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if (isRelogin) {
+            finish();
+        } else {
+            goToMainActivity();
+        }
+    }
+
+    private void goToMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

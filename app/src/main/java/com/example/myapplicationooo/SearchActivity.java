@@ -1,6 +1,7 @@
 package com.example.myapplicationooo;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
@@ -56,6 +58,11 @@ public class SearchActivity extends AppCompatActivity {
     private TextView tvCancel;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -89,9 +96,17 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 if (query != null && !query.trim().isEmpty()) {
                     String cityName = query.trim();
-                    addNewCityToFirestore(cityName);
-                    addToSearchHistory(cityName);
-                    closeSearchMode(searchView);
+                    
+                    if (AuthManager.getInstance().isGuest()) {
+                        // NẾU LÀ GUEST: Cho phép xem kết quả nhưng không lưu
+                        returnSelectedCity(cityName);
+                    } else {
+                        // NẾU ĐÃ LOGIN: Lưu và đồng bộ
+                        addNewCityToFirestore(cityName);
+                        addToSearchHistory(cityName);
+                        closeSearchMode(searchView);
+                        returnSelectedCity(cityName);
+                    }
                 }
                 return true;
             }
@@ -100,7 +115,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         btnDeleteMode.setOnClickListener(v -> {
-            if (isDeleteMode) deleteSelectedCities();
+            if (isDeleteMode) showDeleteConfirmation();
             else toggleDeleteMode();
         });
 
@@ -109,9 +124,23 @@ public class SearchActivity extends AppCompatActivity {
         getCurrentLocation();
     }
 
+    private void showDeleteConfirmation() {
+        if (AuthManager.getInstance().isGuest()) return;
+        List<String> citiesToDelete = new ArrayList<>();
+        for (AddedCity city : addedCityList) if (city.isSelected()) citiesToDelete.add(city.getName());
+        if (citiesToDelete.isEmpty()) { toggleDeleteMode(); return; }
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.manage_cities)
+                .setMessage("Delete selected cities?")
+                .setPositiveButton("Delete", (dialog, which) -> deleteSelectedCities(citiesToDelete))
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
     private void setupPopularLocations() {
-        popularList.add("Delhi"); popularList.add("Mumbai"); popularList.add("Jakarta");
-        popularList.add("Kuala Lumpur"); popularList.add("Singapore"); popularList.add("Los Angeles");
+        popularList.add("Hanoi"); popularList.add("Saigon"); popularList.add("Da Nang");
+        popularList.add("Tokyo"); popularList.add("Paris"); popularList.add("London");
         popularList.add("New York");
     }
 
@@ -120,30 +149,26 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onCityClick(String cityName) { returnSelectedCity(cityName); }
             @Override
-            public void onLongClick() { toggleDeleteMode(); }
+            public void onLongClick() { 
+                if (!AuthManager.getInstance().isGuest()) toggleDeleteMode(); 
+                else LoginRequiredHelper.checkAndProceed(SearchActivity.this, () -> {});
+            }
         };
 
         currentAdapter = new AddedCitiesAdapter(currentLocList, standardListener);
         addedAdapter = new AddedCitiesAdapter(addedCityList, standardListener);
 
-        HistoryChipAdapter.OnChipClickListener chipListener = cityName -> {
-            addNewCityToFirestore(cityName);
-            addToSearchHistory(cityName);
-            returnSelectedCity(cityName);
-        };
+        HistoryChipAdapter.OnChipClickListener chipListener = this::returnSelectedCity;
 
         historyAdapter = new HistoryChipAdapter(historyList, chipListener);
         popularAdapter = new HistoryChipAdapter(popularList, chipListener);
 
         rvCurrentLocation.setLayoutManager(new LinearLayoutManager(this));
         rvCurrentLocation.setAdapter(currentAdapter);
-
         rvAddedCities.setLayoutManager(new LinearLayoutManager(this));
         rvAddedCities.setAdapter(addedAdapter);
-
         rvHistory.setLayoutManager(new GridLayoutManager(this, 3));
         rvHistory.setAdapter(historyAdapter);
-
         rvPopular.setLayoutManager(new GridLayoutManager(this, 3));
         rvPopular.setAdapter(popularAdapter);
     }
@@ -162,7 +187,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void addToSearchHistory(String cityName) {
-        String userId = FirebaseAuth.getInstance().getUid();
+        if (AuthManager.getInstance().isGuest()) return;
+        String userId = AuthManager.getInstance().getUserId();
         if (userId == null) return;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(userId).collection("search_history")
@@ -176,7 +202,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void loadSearchHistory() {
-        String userId = FirebaseAuth.getInstance().getUid();
+        if (AuthManager.getInstance().isGuest()) return;
+        String userId = AuthManager.getInstance().getUserId();
         if (userId == null) return;
         FirebaseFirestore.getInstance().collection("users").document(userId).collection("search_history")
                 .orderBy("time", Query.Direction.DESCENDING).limit(10).get().addOnSuccessListener(qs -> {
@@ -187,7 +214,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void clearSearchHistory() {
-        String userId = FirebaseAuth.getInstance().getUid();
+        if (AuthManager.getInstance().isGuest()) return;
+        String userId = AuthManager.getInstance().getUserId();
         if (userId == null) return;
         FirebaseFirestore.getInstance().collection("users").document(userId).collection("search_history")
                 .get().addOnSuccessListener(qs -> {
@@ -204,41 +232,71 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void toggleDeleteMode() {
+        if (AuthManager.getInstance().isGuest()) return;
         isDeleteMode = !isDeleteMode;
         addedAdapter.setDeleteMode(isDeleteMode);
         btnDeleteMode.setImageResource(isDeleteMode ? android.R.drawable.ic_menu_save : android.R.drawable.ic_menu_delete);
     }
 
-    private void deleteSelectedCities() {
-        List<String> citiesToDelete = new ArrayList<>();
-        for (AddedCity city : addedCityList) if (city.isSelected()) citiesToDelete.add(city.getName());
-        if (citiesToDelete.isEmpty()) { toggleDeleteMode(); return; }
-        String userId = FirebaseAuth.getInstance().getUid();
+    private void deleteSelectedCities(List<String> citiesToDelete) {
+        String userId = AuthManager.getInstance().getUserId();
         if (userId != null) {
             FirebaseFirestore.getInstance().collection("users").document(userId)
                     .update("favoriteCities", FieldValue.arrayRemove(citiesToDelete.toArray()))
-                    .addOnSuccessListener(aVoid -> { 
-                        toggleDeleteMode(); 
-                        loadAddedCities(); 
-                    });
+                    .addOnSuccessListener(aVoid -> { toggleDeleteMode(); loadAddedCities(); });
         }
     }
 
     private void loadAddedCities() {
-        String userId = FirebaseAuth.getInstance().getUid();
+
+        if (AuthManager.getInstance().isGuest()) {
+
+            addedCityList.clear();
+            addedAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        String userId = AuthManager.getInstance().getUserId();
+
         if (userId == null) return;
-        FirebaseFirestore.getInstance().collection("users").document(userId).get().addOnSuccessListener(ds -> {
-            if (ds.exists()) {
-                List<String> cities = (List<String>) ds.get("favoriteCities");
-                addedCityList.clear();
-                if (cities != null) for (String name : cities) {
-                    AddedCity city = new AddedCity(name);
-                    addedCityList.add(city);
-                    fetchWeatherData(city, addedAdapter);
-                }
-                addedAdapter.notifyDataSetChanged();
-            }
-        });
+
+        FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(ds -> {
+
+                    addedCityList.clear();
+
+                    if (ds.exists()) {
+
+                        Object data = ds.get("favoriteCities");
+
+                        List<String> cities = new ArrayList<>();
+
+                        if (data instanceof List<?>) {
+
+                            for (Object item : (List<?>) data) {
+
+                                if (item instanceof String) {
+
+                                    cities.add((String) item);
+                                }
+                            }
+                        }
+
+                        for (String name : cities) {
+
+                            AddedCity city = new AddedCity(name);
+
+                            addedCityList.add(city);
+
+                            fetchWeatherData(city, addedAdapter);
+                        }
+                    }
+
+                    addedAdapter.notifyDataSetChanged();
+                });
     }
 
     private void getCurrentLocation() {
@@ -253,7 +311,6 @@ public class SearchActivity extends AppCompatActivity {
                         String cityName = address.getLocality();
                         if (cityName == null) cityName = address.getSubAdminArea();
                         if (cityName == null) cityName = address.getAdminArea();
-                        
                         AddedCity city = new AddedCity(cityName);
                         city.setCurrentLocation(true);
                         currentLocList.clear(); currentLocList.add(city);
@@ -284,7 +341,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void addNewCityToFirestore(String cityName) {
-        String userId = FirebaseAuth.getInstance().getUid();
+        String userId = AuthManager.getInstance().getUserId();
         if (userId != null) {
             FirebaseFirestore.getInstance().collection("users").document(userId)
                     .update("favoriteCities", FieldValue.arrayUnion(cityName))

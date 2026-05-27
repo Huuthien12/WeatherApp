@@ -12,7 +12,6 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,15 +38,14 @@ public class SplashActivity extends AppCompatActivity {
 
         startAnimations();
 
-        // Chuyển sang màn hình Login sau 3.5 giây
+        // Chuyển thẳng sang màn hình chính để hỗ trợ Guest Mode
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();
-        }, 3500);
+        }, 3000);
     }
 
     private void startAnimations() {
-        // 1. Hiệu ứng xoay cho mặt trời
         RotateAnimation rotate = new RotateAnimation(0, 360,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(10000);
@@ -57,19 +55,16 @@ public class SplashActivity extends AppCompatActivity {
             imgSun.startAnimation(rotate);
         }
 
-        // 2. Hiệu ứng hiện dần cho logo
         Animation fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
         fadeIn.setDuration(1500);
         if (logoContainer != null) {
             logoContainer.startAnimation(fadeIn);
         }
 
-        // 3. Hiệu ứng mây trôi nhẹ nhàng
         if (cloud1 != null) animateCloud(cloud1, 20000, 30f);
         if (cloud2 != null) animateCloud(cloud2, 25000, -40f);
         if (cloud3 != null) animateCloud(cloud3, 18000, 50f);
 
-        // 4. Hiệu ứng dấu chấm loading
         if (dot1 != null) animateDot(dot1, 0);
         if (dot2 != null) animateDot(dot2, 200);
         if (dot3 != null) animateDot(dot3, 400);
