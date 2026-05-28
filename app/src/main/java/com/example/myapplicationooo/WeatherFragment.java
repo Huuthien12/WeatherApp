@@ -202,19 +202,54 @@ public class WeatherFragment extends Fragment {
     }
 
     private void getWeatherData() {
+        if (getContext() == null) return;
+        
+        final String cacheKeyCurrent = (isCurrentLocation ? "current_loc" : cityName) + "_current";
+        final String cacheKeyForecast = (isCurrentLocation ? "current_loc" : cityName) + "_forecast";
+        final AppDatabase db = AppDatabase.getInstance(getContext());
+
+        // 1. Tải và hiển thị dữ liệu từ Cache (Offline) trước
         new Thread(() -> {
             try {
-                String urlString;
-                if (isCurrentLocation && lat != 0 && lon != 0) {
-                    urlString = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
-                } else {
-                    urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + API_KEY;
+                WeatherCacheEntity currentCached = db.weatherDao().getCachedWeather(cacheKeyCurrent);
+                if (currentCached != null) {
+                    WeatherResponse data = new Gson().fromJson(currentCached.getJsonResponse(), WeatherResponse.class);
+                    if (isAdded()) getActivity().runOnUiThread(() -> updateWeatherUI(data));
                 }
+                
+                WeatherCacheEntity forecastCached = db.weatherDao().getCachedWeather(cacheKeyForecast);
+                if (forecastCached != null) {
+                    ForecastResponse data = new Gson().fromJson(forecastCached.getJsonResponse(), ForecastResponse.class);
+                    if (isAdded()) {
+                        getActivity().runOnUiThread(() -> {
+                            String unit = prefs.getString("temp_unit", "C");
+                            ForecastAdapter adapter = new ForecastAdapter(data.getList(), unit, data.getCity().getTimezone());
+                            rvForecast.setAdapter(adapter);
+                            updateMinMaxFromForecast(data);
+                            updateDailyForecast(data);
+                        });
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        // 2. Tải dữ liệu mới từ API và cập nhật Cache
+        new Thread(() -> {
+            try {
+                String urlString = (isCurrentLocation && lat != 0 && lon != 0)
+                        ? "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY
+                        : "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + API_KEY;
                 
                 URL url = new URL(urlString);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 if (conn.getResponseCode() == 200) {
                     WeatherResponse data = new Gson().fromJson(new InputStreamReader(conn.getInputStream()), WeatherResponse.class);
+                    
+                    // Lưu vào database
+                    db.weatherDao().insertWeather(new WeatherCacheEntity(cacheKeyCurrent, new Gson().toJson(data), System.currentTimeMillis()));
+                    
                     if (isAdded()) getActivity().runOnUiThread(() -> updateWeatherUI(data));
                 }
             } catch (Exception e) { e.printStackTrace(); }
@@ -222,17 +257,18 @@ public class WeatherFragment extends Fragment {
 
         new Thread(() -> {
             try {
-                String urlString;
-                if (isCurrentLocation && lat != 0 && lon != 0) {
-                    urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
-                } else {
-                    urlString = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=metric&appid=" + API_KEY;
-                }
+                String urlString = (isCurrentLocation && lat != 0 && lon != 0)
+                        ? "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY
+                        : "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=metric&appid=" + API_KEY;
 
                 URL url = new URL(urlString);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 if (conn.getResponseCode() == 200) {
                     ForecastResponse data = new Gson().fromJson(new InputStreamReader(conn.getInputStream()), ForecastResponse.class);
+                    
+                    // Lưu vào database
+                    db.weatherDao().insertWeather(new WeatherCacheEntity(cacheKeyForecast, new Gson().toJson(data), System.currentTimeMillis()));
+
                     if (isAdded()) {
                         getActivity().runOnUiThread(() -> {
                             String unit = prefs.getString("temp_unit", "C");
