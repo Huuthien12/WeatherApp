@@ -11,13 +11,13 @@ public class ChatRepository {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final String userId = FirebaseAuth.getInstance().getUid();
 
-    private final GeminiInterface api;
+    private final DeepSeekInterface api;
 
     public ChatRepository(Context context) {
-        api = ApiClient.getClient(context).create(GeminiInterface.class);
+        api = ApiClient.getClient(context).create(DeepSeekInterface.class);
     }
 
-    public GeminiInterface getApi() {
+    public DeepSeekInterface getApi() {
         return api;
     }
 
