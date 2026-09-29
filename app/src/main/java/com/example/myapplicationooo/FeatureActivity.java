@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -40,7 +41,7 @@ public class FeatureActivity extends AppCompatActivity {
         features.add(new FeatureModel(getString(R.string.twenty_four_hour_forecast), "Real-time updates and detailed forecast.", android.R.drawable.ic_menu_day, false));
         features.add(new FeatureModel("Weather Radar", "Interactive rain and wind radar maps.", android.R.drawable.ic_dialog_map, false));
         features.add(new FeatureModel("Marine Weather", "Wave height and sea temperature data.", android.R.drawable.ic_menu_compass, false));
-        
+        features.add(new FeatureModel("Agriculture Weather", "Weather conditions and recommendations for farming.", android.R.drawable.ic_menu_myplaces, false));
         // Premium Features
         // Fixed: Replaced non-existent ic_menu_chat_bubble with ic_menu_send
         features.add(new FeatureModel("AI Health Assistant", "Personalized health advice based on weather.", android.R.drawable.ic_menu_send, true));
@@ -73,6 +74,17 @@ public class FeatureActivity extends AppCompatActivity {
             holder.badge.setVisibility(item.isPremium() ? View.VISIBLE : View.GONE);
             
             holder.itemView.setOnClickListener(v -> {
+                if ("Agriculture Weather".equals(item.getTitle())) {
+
+                    Intent intent = new Intent(
+                            v.getContext(),
+                            AgricultureActivity.class
+                    );
+
+                    v.getContext().startActivity(intent);
+                    return;
+                }
+
                 if (item.isPremium()) {
                     LoginRequiredHelper.checkAndProceed(v.getContext(), () -> {
                         // Already logged in logic
