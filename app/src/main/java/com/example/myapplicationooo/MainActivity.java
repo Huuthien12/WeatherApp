@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnRadar = findViewById(R.id.btnRadar);
         ImageButton btnChatAI = findViewById(R.id.btnChatAI);
         ImageButton btnAQI = findViewById(R.id.btnAQI);
+        ImageButton btnAgriculture = findViewById(R.id.btnAgriculture);
 
         pagerAdapter = new WeatherPagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
@@ -148,6 +149,22 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AQIActivity.class);
                 intent.putExtra("lat", currentLat);
                 intent.putExtra("lon", currentLon);
+                startActivity(intent);
+            });
+        }
+
+        // Agriculture Weather
+        if (btnAgriculture != null) {
+            btnAgriculture.setOnClickListener(v -> {
+                Intent intent = new Intent(
+                        MainActivity.this,
+                        AgricultureActivity.class
+                );
+
+                // Truyền vị trí hiện tại làm vị trí ban đầu cho bản đồ
+                intent.putExtra("lat", currentLat);
+                intent.putExtra("lon", currentLon);
+
                 startActivity(intent);
             });
         }

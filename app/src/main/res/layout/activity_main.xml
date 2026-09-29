@@ -50,11 +50,11 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_send"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_ai"
             android:scaleType="fitCenter"
-            android:padding="8dp"
-            app:tint="#FFFFFF"
+            android:padding="4dp"
+            app:tint="@null"
             android:contentDescription="AI Assistant" />
 
         <ImageButton
@@ -62,11 +62,11 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_air"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_aqi"
             android:scaleType="fitCenter"
-            android:padding="8dp"
-            app:tint="#FFFFFF"
+            android:padding="4dp"
+            app:tint="@null"
             android:contentDescription="AQI" />
 
         <ImageButton
@@ -74,12 +74,24 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_dialog_map"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_seamap"
             android:scaleType="fitCenter"
-            android:padding="8dp"
-            app:tint="#FFFFFF"
-            android:contentDescription="Weather Radar Map" />
+            android:padding="4dp"
+            android:contentDescription="Weather Radar Map"
+            app:tint="@null" />
+
+        <ImageButton
+            android:id="@+id/btnAgriculture"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_agriculture"
+            android:scaleType="fitCenter"
+            android:padding="4dp"
+            android:contentDescription="Agriculture Weather"
+            app:tint="@null" />
 
         <ImageButton
             android:id="@+id/btnAddCity"

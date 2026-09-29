@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F0F0F">
+
+    <org.maplibre.android.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#CC0F0F0F"
+            app:navigationIcon="@android:drawable/ic_menu_revert"
+            app:title="Agriculture Weather"
+            app:titleTextColor="#FFFFFF" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/tvMapHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="72dp"
+        android:background="#CC1A1A1A"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp"
+        android:text="Chạm một vị trí trên bản đồ để xem thời tiết nông nghiệp"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardAgricultureInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#E61A1A1A"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="THỜI TIẾT NÔNG NGHIỆP"
+                android:textColor="#66BB6A"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSelectedLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Vị trí đã chọn"
+                android:textColor="#B3FFFFFF"
+                android:textSize="12sp" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:columnCount="2">
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nhiệt độ" android:textColor="#80FFFFFF" android:textSize="11sp" />
+                    <TextView android:id="@+id/tvTemperature" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--°C" android:textColor="#FFFFFF" android:textSize="17sp" android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="end" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Độ ẩm" android:textColor="#80FFFFFF" android:textSize="11sp" />
+                    <TextView android:id="@+id/tvHumidity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--%" android:textColor="#FFFFFF" android:textSize="17sp" android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginTop="10dp" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lượng mưa" android:textColor="#80FFFFFF" android:textSize="11sp" />
+                    <TextView android:id="@+id/tvRain" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-- mm" android:textColor="#FFFFFF" android:textSize="17sp" android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:layout_marginTop="10dp" android:gravity="end" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tốc độ gió" android:textColor="#80FFFFFF" android:textSize="11sp" />
+                    <TextView android:id="@+id/tvWind" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-- km/h" android:textColor="#FFFFFF" android:textSize="17sp" android:textStyle="bold" />
+                </LinearLayout>
+            </GridLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="10dp" android:background="#1AFFFFFF" />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ĐÁNH GIÁ" android:textColor="#66BB6A" android:textSize="12sp" android:textStyle="bold" />
+            <TextView android:id="@+id/tvAgricultureAssessment" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="--" android:textColor="#FFFFFF" android:textSize="13sp" />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:text="KHUYẾN NGHỊ" android:textColor="#FFC107" android:textSize="12sp" android:textStyle="bold" />
+            <TextView android:id="@+id/tvAgricultureRecommendation" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="--" android:textColor="#FFFFFF" android:textSize="13sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
